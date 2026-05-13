@@ -18,7 +18,12 @@ load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./career_assessment.db")
 AI_PROVIDER = os.getenv("AI_PROVIDER", "openai")
 AI_MODEL = os.getenv("AI_MODEL", "gpt-4o-mini")
-engine = create_engine(DATABASE_URL)
+
+connect_args = {}
+if DATABASE_URL.startswith("postgres://") or DATABASE_URL.startswith("postgresql://"):
+    connect_args = {"sslmode": "require"}
+
+engine = create_engine(DATABASE_URL, connect_args=connect_args)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base.metadata.create_all(bind=engine)

@@ -121,7 +121,7 @@ git push origin main
      - `OPENAI_BASE_URL`
      - `AI_PROVIDER=openai`
      - `AI_MODEL=gpt-4o-mini`
-     - `DATABASE_URL`
+     - `DATABASE_URL`（支持 Supabase/PostgreSQL）
      - `ADMIN_USERNAME`（可选）
      - `ADMIN_PASSWORD`（可选）
 
@@ -172,6 +172,16 @@ OPENAI_BASE_URL=https://api.openai.com/v1
 ```
 OPENAI_API_KEY=sk-xxx
 OPENAI_BASE_URL=https://yyds.215.im/v1
+```
+
+### Supabase PostgreSQL 数据库
+在 Supabase 上创建数据库后，获取连接字符串：
+```
+postgresql://username:password@dbhost:5432/database?sslmode=require
+```
+然后设置：
+```
+DATABASE_URL=postgresql://username:password@dbhost:5432/database?sslmode=require
 ```
 
 详见 [AI_CONFIG_GUIDE.md](./AI_CONFIG_GUIDE.md)

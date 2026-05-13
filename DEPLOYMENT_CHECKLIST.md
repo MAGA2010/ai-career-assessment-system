@@ -30,13 +30,13 @@
 - [ ] 版本标签已创建
 - [ ] CHANGELOG.md 已添加
 
-## 🚀 后端部署 (Railway/Render)
-- [ ] 创建云账户（Railway/Render）
+## 🚀 后端部署 (Supabase/PostgreSQL + Render)
+- [ ] 创建云账户（Supabase + Render）
 - [ ] 连接 GitHub 仓库
 - [ ] 设置环境变量：
   - [ ] OPENAI_API_KEY
   - [ ] OPENAI_BASE_URL
-  - [ ] DATABASE_URL (PostgreSQL)
+  - [ ] DATABASE_URL (Supabase PostgreSQL)
   - [ ] AI_PROVIDER
   - [ ] AI_MODEL
 - [ ] 自动部署启用

@@ -103,6 +103,38 @@ npm run dev
 4. **最终报告**：展示完整评估结果
 5. **数据保存**：所有答案和报告持久化
 
+## 🌐 部署到 Render
+
+1. **推送到 GitHub**
+```bash
+git push origin main
+```
+
+2. **Render 配置**
+   - 登录 https://render.com 并创建一个新的 Web Service
+   - 连接你的 GitHub 仓库
+   - 设置 `Root Directory` 为项目根目录（默认即可）
+   - `Build Command`：`pip install -r requirements.txt`
+   - `Start Command`：`bash start.sh`
+   - 添加环境变量：
+     - `OPENAI_API_KEY`
+     - `OPENAI_BASE_URL`
+     - `AI_PROVIDER=openai`
+     - `AI_MODEL=gpt-4o-mini`
+     - `DATABASE_URL`
+     - `ADMIN_USERNAME`（可选）
+     - `ADMIN_PASSWORD`（可选）
+
+3. **前端部署**
+   - 前端仍建议部署到 Vercel 或其他前端平台
+   - 添加环境变量：`NEXT_PUBLIC_API_URL=https://your-render-app.onrender.com`
+
+4. **验证后端**
+   - `GET /api/questions` 应返回问题列表
+   - `GET /api/debug/env` 用于检查环境变量是否加载正常
+
+详见 [DEPLOYMENT_CHECKLIST.md](./DEPLOYMENT_CHECKLIST.md)
+
 ## 🌐 部署到 Railway
 
 1. **推送到 GitHub**
@@ -116,6 +148,8 @@ git push origin main
      - `OPENAI_API_KEY`
      - `OPENAI_BASE_URL`
      - `DATABASE_URL` (PostgreSQL)
+     - `AI_PROVIDER=openai`
+     - `AI_MODEL=gpt-4o-mini`
    - 启动命令：`python -m uvicorn app:app --host 0.0.0.0 --port $PORT`
 
 3. **Vercel 前端部署**

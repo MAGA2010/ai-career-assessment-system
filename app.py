@@ -39,9 +39,9 @@ app.add_middleware(
 
 security = HTTPBasic()
 
-# 简单认证凭据（生产环境建议使用环境变量或更安全方式）
-ADMIN_USERNAME = "admin"
-ADMIN_PASSWORD = "password123"
+# 简单认证凭据（生产环境使用环境变量）
+ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "admin")
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "password123")
 
 def verify_admin(credentials: HTTPBasicCredentials = Depends(security)):
     correct_username = secrets.compare_digest(credentials.username, ADMIN_USERNAME)

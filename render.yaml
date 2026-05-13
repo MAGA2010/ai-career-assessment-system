@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: ai-career-backend
+    env: python
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: bash start.sh
+    envVars:
+      - key: OPENAI_API_KEY
+      - key: OPENAI_BASE_URL
+      - key: AI_PROVIDER
+      - key: AI_MODEL
+      - key: DATABASE_URL
+      - key: ADMIN_USERNAME
+      - key: ADMIN_PASSWORD

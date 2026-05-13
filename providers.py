@@ -1,7 +1,6 @@
 from typing import Any, Dict
 import os
 import httpx
-import google.generativeai as genai
 from dotenv import load_dotenv
 
 # Load .env file
@@ -64,6 +63,11 @@ async def call_azure_openai(model: str, prompt: str, params: Dict[str, Any]) -> 
 async def call_gemini(model: str, prompt: str, params: Dict[str, Any]) -> Dict[str, Any]:
     if not GEMINI_API_KEY:
         return {"text": "Gemini API key not configured. Please set GEMINI_API_KEY."}
+
+    try:
+        import google.genai as genai
+    except ImportError:
+        import google.generativeai as genai
 
     genai.configure(api_key=GEMINI_API_KEY)
     generation_config = genai.types.GenerationConfig(

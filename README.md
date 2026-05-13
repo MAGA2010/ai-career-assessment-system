@@ -126,7 +126,7 @@ git push origin main
      - `ADMIN_PASSWORD`（可选）
 
 3. **前端部署**
-   - 前端仍建议部署到 Vercel 或其他前端平台
+   - 前端建议部署到 Vercel
    - 添加环境变量：`NEXT_PUBLIC_API_URL=https://your-render-app.onrender.com`
 
 4. **验证后端**

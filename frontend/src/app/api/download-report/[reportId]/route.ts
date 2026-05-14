@@ -22,13 +22,14 @@ function verifyAdmin(req: Request) {
   );
 }
 
-export async function GET(req: NextRequest, { params }: { params: { reportId: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ reportId: string }> }) {
   if (!verifyAdmin(req)) {
     return new NextResponse(JSON.stringify({ message: "Unauthorized" }), { status: 401, headers: { "Content-Type": "application/json" } });
   }
 
-  const reportId = Number(params.reportId);
-  if (Number.isNaN(reportId)) {
+  const { reportId } = await params;
+  const reportIdNum = Number(reportId);
+  if (Number.isNaN(reportIdNum)) {
     return NextResponse.json({ message: "Invalid report ID" }, { status: 400 });
   }
 

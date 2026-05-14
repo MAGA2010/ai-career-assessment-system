@@ -19,7 +19,7 @@ export default function Home() {
   const fetchQuestions = async () => {
     try {
       setError(null);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/questions`);
+      const res = await fetch("/api/questions");
       if (!res.ok) throw new Error("无法获取问题列表");
       const data = await res.json();
       setCurrentQuestions(data);
@@ -45,7 +45,7 @@ export default function Home() {
       // 合并所有答案
       const mergedAnswers = { ...allAnswers, ...answers };
       
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/assess`, {
+      const res = await fetch("/api/assess", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ answers: mergedAnswers }),

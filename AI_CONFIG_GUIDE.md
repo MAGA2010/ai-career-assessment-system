@@ -50,18 +50,17 @@ AI_MODEL=gemini-1.5-flash
 2. 复制上面的配置，填入你的 API 密钥
 3. 运行后端：`python -m uvicorn app:app --reload --host 0.0.0.0 --port 8000`
 
-#### Railway 部署
-1. 在 Railway 项目设置中，添加环境变量
-2. 设置：
-   - `OPENAI_API_KEY`: 你的 API 密钥
-   - `OPENAI_BASE_URL`: 你的网关地址
-   - `AI_PROVIDER`: openai
-   - `AI_MODEL`: gpt-4o-mini
-
-#### Render 部署
-1. 在 Render 创建 Web Service
-2. 连接 GitHub 仓库
-3. 添加环境变量（同上）
+#### Vercel + Supabase 部署
+1. 在 Vercel 项目中，创建一个新的应用并指向 `frontend` 目录
+2. 在 Vercel 环境变量中添加：
+   - `SUPABASE_URL`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `OPENAI_API_KEY`
+   - `OPENAI_BASE_URL`
+   - `AI_MODEL`
+   - `ADMIN_USERNAME`
+   - `ADMIN_PASSWORD`
+3. 部署后，前端会直接调用 Vercel 后端 API 路由 `/api/questions` 和 `/api/assess`
 
 ### 故障排除
 

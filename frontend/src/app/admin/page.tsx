@@ -13,9 +13,18 @@ export default function Admin() {
     fetchReports();
   }, []);
 
+  const getBasicAuthHeader = () => {
+    const username = window.prompt("请输入管理员用户名", "admin");
+    const password = window.prompt("请输入管理员密码", "");
+    if (!username || !password) return null;
+    return `Basic ${window.btoa(`${username}:${password}`)}`;
+  };
+
   const fetchStats = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/stats`);
+      const authHeader = getBasicAuthHeader();
+      if (!authHeader) return;
+      const res = await fetch("/api/admin/stats", { headers: { Authorization: authHeader } });
       const data = await res.json();
       setStats(data);
     } catch (error) {
@@ -25,7 +34,12 @@ export default function Admin() {
 
   const fetchReports = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/reports`);
+      const authHeader = getBasicAuthHeader();
+      if (!authHeader) {
+        setLoading(false);
+        return;
+      }
+      const res = await fetch("/api/admin/reports", { headers: { Authorization: authHeader } });
       const data = await res.json();
       setReports(data);
       setLoading(false);
@@ -35,8 +49,26 @@ export default function Admin() {
     }
   };
 
-  const handleDownload = (reportId: number) => {
-    window.open(`${process.env.NEXT_PUBLIC_API_URL}/api/download-report/${reportId}`, "_blank");
+  const handleDownload = async (reportId: number) => {
+    const authHeader = getBasicAuthHeader();
+    if (!authHeader) return;
+
+    try {
+      const res = await fetch(`/api/download-report/${reportId}`, {
+        headers: { Authorization: authHeader },
+      });
+      if (!res.ok) {
+        throw new Error("下载失败");
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `report_${reportId}.txt`;
+      a.click();
+    } catch (error) {
+      console.error("Failed to download report:", error);
+    }
   };
 
   if (loading) {

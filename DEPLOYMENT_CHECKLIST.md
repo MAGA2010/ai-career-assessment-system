@@ -30,23 +30,31 @@
 - [ ] 版本标签已创建
 - [ ] CHANGELOG.md 已添加
 
-## 🚀 后端部署 (Supabase/PostgreSQL + Render)
-- [ ] 创建云账户（Supabase + Render）
+## 🚀 后端部署 (Supabase/PostgreSQL + Vercel)
+- [ ] 创建云账户（Supabase）
 - [ ] 连接 GitHub 仓库
 - [ ] 设置环境变量：
+  - [ ] SUPABASE_URL
+  - [ ] SUPABASE_SERVICE_ROLE_KEY
   - [ ] OPENAI_API_KEY
   - [ ] OPENAI_BASE_URL
-  - [ ] DATABASE_URL (Supabase PostgreSQL)
-  - [ ] AI_PROVIDER
   - [ ] AI_MODEL
+  - [ ] ADMIN_USERNAME
+  - [ ] ADMIN_PASSWORD
 - [ ] 自动部署启用
-- [ ] 健康检查配置：`GET /` 应返回 200
+- [ ] 健康检查配置：`GET /api/questions` 应返回 200
 
 ## 🎨 前端部署 (Vercel)
 - [ ] 注册 Vercel 账户
 - [ ] 连接 GitHub（frontend 文件夹）
 - [ ] 设置环境变量：
-  - [ ] NEXT_PUBLIC_API_URL = 后端 URL
+  - [ ] SUPABASE_URL
+  - [ ] SUPABASE_SERVICE_ROLE_KEY
+  - [ ] OPENAI_API_KEY
+  - [ ] OPENAI_BASE_URL
+  - [ ] AI_MODEL
+  - [ ] ADMIN_USERNAME
+  - [ ] ADMIN_PASSWORD
 - [ ] 自动部署启用
 - [ ] 自定义域名配置（可选）
 
@@ -92,13 +100,13 @@
 
 ## 🚀 快速部署命令
 
-### Railway 部署
+### Vercel 部署
 ```bash
 # 1. 上传到 GitHub
 git push origin main
 
-# 2. Railway 连接 GitHub 并自动部署
-# 3. 在 Railway 设置环境变量
+# 2. Vercel 连接 GitHub 并自动部署
+# 3. 在 Vercel 设置环境变量
 # 4. 查看部署日志
 ```
 
@@ -125,9 +133,9 @@ curl http://localhost:8000/api/questions
 - 检查 API Key 有效期
 
 ### 前端连接不到后端
-- 检查 NEXT_PUBLIC_API_URL 是否正确
-- 验证 CORS 设置
-- 检查防火墙规则
+- 检查 Vercel 部署是否成功
+- 验证 `/api/questions` 是否可访问
+- 确认 Vercel 环境变量是否已经设置
 
 ### 数据库连接失败
 - 检查 DATABASE_URL 格式
